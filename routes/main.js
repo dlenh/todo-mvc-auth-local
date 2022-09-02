@@ -8,7 +8,7 @@ router.get('/', homeController.getIndex)
 router.get('/login', authController.getLogin)
 router.post('/login', authController.postLogin)
 router.get('/logout', authController.logout)
-router.get('/signup', authController.getSignup)
-router.post('/signup', authController.postSignup)
+router.get('/signup', authController.getSignup) // load sign up page
+router.post('/signup', authController.postSignup) // submitting post on sign up page
 
 module.exports = router

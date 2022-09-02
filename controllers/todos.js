@@ -1,10 +1,10 @@
-const Todo = require('../models/Todo')
+const Todo = require('../models/Todo') // model is the database; require todo file from models folder
 
 module.exports = {
-    getTodos: async (req,res)=>{
-        console.log(req.user)
-        try{
-            const todoItems = await Todo.find({userId:req.user.id})
+    getTodos: async (req,res)=>{ // get all the todos
+        console.log(req.user) // user that is making the request (extracted from req body); each user has a unique ID
+        try{ // in database, each todo has id of the user
+            const todoItems = await Todo.find({userId:req.user.id}) // find todos in database (model) that match the user id of the logged in user
             const itemsLeft = await Todo.countDocuments({userId:req.user.id,completed: false})
             res.render('todos.ejs', {todos: todoItems, left: itemsLeft, user: req.user})
         }catch(err){
@@ -13,7 +13,7 @@ module.exports = {
     },
     createTodo: async (req, res)=>{
         try{
-            await Todo.create({todo: req.body.todoItem, completed: false, userId: req.user.id})
+            await Todo.create({todo: req.body.todoItem, completed: false, userId: req.user.id}) // new todo will have the ID of the logged in user
             console.log('Todo has been added!')
             res.redirect('/todos')
         }catch(err){

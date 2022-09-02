@@ -68,7 +68,7 @@ const User = require('../models/User')
     }
     req.body.email = validator.normalizeEmail(req.body.email, { gmail_remove_dots: false })
   
-    const user = new User({
+    const user = new User({ // user model that grabs info from request body of the form to create a new user
       userName: req.body.userName,
       email: req.body.email,
       password: req.body.password
@@ -89,7 +89,7 @@ const User = require('../models/User')
           if (err) {
             return next(err)
           }
-          res.redirect('/todos')
+          res.redirect('/todos') // after saving user to collection, take us to the todos page
         })
       })
     })
